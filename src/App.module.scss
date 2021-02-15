@@ -1,0 +1,14 @@
+@import './styles.scss';
+
+.calculatorWrapp {
+  background-color: $color-red;
+  width: 400px;
+  padding-bottom: 8px;
+  margin: 50px auto;
+}
+
+.calculatorBtns {
+  display: flex;
+  height: 380px;
+}
+

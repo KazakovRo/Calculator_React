@@ -1,0 +1,23 @@
+@import '/src/styles.scss';
+
+.additionalWrapp {
+  width: 80px;
+  padding: 4px;
+}
+
+.btn {
+  width: 60px;
+  margin: 4px;
+  font-size: 21px;
+  text-align: center;
+  background-color: orange;
+}
+
+.btn:first-child {
+  height: 54px;
+  background-color: greenyellow;
+}
+
+.btn {
+  height: 34%;
+}

@@ -1,0 +1,35 @@
+// @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Noticia+Text:ital@1&display=swap");
+
+$color-bg: 	#91ff0242;
+$color-bg-purple: #bd02ff30;
+$color-hov: #ffa600;
+$color-red: rgba(250, 40, 40, 0.897);
+$color-red-hov: rgba(250, 40, 40, 0.719);
+
+$color-green: #3d9e30;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-btn: rgba(13, 253, 33, 0.349);
+
+$trans: .2s ease-in;
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noticia Text', serif;
+
+  body {
+    background-color: $color-bg-purple;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    color: $color-black;
+  }
+}

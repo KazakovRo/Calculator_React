@@ -1,0 +1,19 @@
+@import '/src/styles.scss';
+
+.numbersWrapp {
+  width: 200px;
+  padding: 4px;
+}
+
+.btn {
+  width: 54px;
+  height: 54px;
+  margin: 4px;
+  font-size: 21px;
+  text-align: center;
+  background-color: lightgreen;
+}
+
+.numbersWrapp .btn:last-child {
+  width: 93%;
+}
