@@ -16,10 +16,44 @@ const App = () => {
   const operatorsValues = ['+', '-', '/', 'x']
   const additionalValues = ['.', 'A/C', '=']
 
+  let firstOperandValue = []
+  let secondOperandValue = []
+
   const handlePlusOperator = (firstOperand, secondOperand) => firstOperand + secondOperand
   const handleMinusOperator = (firstOperand, secondOperand) => firstOperand - secondOperand
   const handleMultiplyOperator = (firstOperand, secondOperand) => firstOperand * secondOperand
   const handleDivideOperator = (firstOperand, secondOperand) => firstOperand / secondOperand
+
+
+  const handleSetAllValues = (btnValue) => { 
+    const isOperand = typeof btnValue == 'number'
+    const isOperator = typeof btnValue == 'string' && btnValue !== '=' && btnValue !== 'A/C'
+    const isEqualBtn = typeof btnValue == 'string' && btnValue === '='
+    const isClearBtn = typeof btnValue == 'string' && btnValue === 'A/C'
+
+    if (isOperand) {
+      handleOperandValue(btnValue)
+    } else if (isOperator) {
+      setOperator(btnValue)
+      setIsFirstValue(false)    
+    } else if (isEqualBtn) {
+      handleEqualTo(firstOperand, secondOperand, operator)
+    } else if (isClearBtn) {
+      handleClearAll()
+    }
+  }
+
+  const handleOperandValue = (btnValue) => {
+    const isFirstOperand = typeof btnValue == 'number' && isFirstValue === true
+
+    if (isFirstOperand) {
+      setFirstOperand(btnValue)
+      setResult(btnValue)
+    } else {
+      setSecondOperand(btnValue)
+      setResult(btnValue)
+    }
+  }
 
   const handleEqualTo = (firstOperand, secondOperand, operator) => {
     let result 
@@ -38,42 +72,14 @@ const App = () => {
       result = handleDivideOperator(firstOperand, secondOperand)
     }
     
-    return setResult(result)
+    setResult(result)
+
+    return  setFirstOperand(result)
   }
 
   const handleClearAll = () => {
     setIsFirstValue(true)
     setResult(0)
-  }
-
-  const handleOperandValue = (btnValue) => {
-    const isFirstOperand = typeof btnValue == 'number' && isFirstValue === true
-
-    if (isFirstOperand) {
-      setFirstOperand(btnValue)
-      setResult(btnValue)
-    } else {
-      setSecondOperand(btnValue)
-      setResult(btnValue)
-    }
-  }
-
-  const handleSetOperandValue = (btnValue) => { 
-    const isOperand = typeof btnValue == 'number'
-    const isOperator = typeof btnValue == 'string' && btnValue !== '=' && btnValue !== 'A/C'
-    const isEqualBtn = typeof btnValue == 'string' && btnValue === '='
-    const isClearBtn = typeof btnValue == 'string' && btnValue === 'A/C'
-
-    if (isOperand) {
-      handleOperandValue(btnValue)
-    } else if (isOperator) {
-      setOperator(btnValue)
-      setIsFirstValue(false)    
-    } else if (isEqualBtn) {
-      handleEqualTo(firstOperand, secondOperand, operator)
-    } else if (isClearBtn) {
-      handleClearAll()
-    }
   }
 
   return (
@@ -84,7 +90,7 @@ const App = () => {
         numberValues={numberValues}
         operatorsValues={operatorsValues}
         additionalValues={additionalValues}
-        handleSetOperandValue={handleSetOperandValue}
+        handleSetAllValues={handleSetAllValues}
       />
     </div>
   )
