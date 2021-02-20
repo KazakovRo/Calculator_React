@@ -3,12 +3,14 @@ import React from "react"
 import ButtonLogic from '../ButtonLogic/ButtonLogic'
 import styles from './AdditionalBtns.module.scss'
 
-const AdditionalBtns = ({additionalValues}) => {
+const AdditionalBtns = ({additionalValues, handleSetOperandValue}) => {
   return (
     <div className={styles.additionalWrapp}>
       <ButtonLogic
         arrayValues={additionalValues}
-        styles={styles} />
+        styles={styles}
+        handleSetOperandValue={handleSetOperandValue}
+      />
     </div>
   )
 }

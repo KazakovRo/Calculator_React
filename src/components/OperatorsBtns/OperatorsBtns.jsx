@@ -3,12 +3,14 @@ import React from "react"
 import ButtonLogic from '../ButtonLogic/ButtonLogic'
 import styles from './OperatorsBtns.module.scss'
 
-const OperatorsBtns = ({operatorsValues}) => {
+const OperatorsBtns = ({operatorsValues, handleSetOperandValue}) => {
   return (
     <div className={styles.operatorsWrapp}>
       <ButtonLogic
         arrayValues={operatorsValues}
-        styles={styles} />
+        styles={styles}
+        handleSetOperandValue={handleSetOperandValue}
+      />
     </div>
   )
 }

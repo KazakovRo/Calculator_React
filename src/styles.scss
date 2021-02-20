@@ -1,29 +1,32 @@
-// @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Noticia+Text:ital@1&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noticia+Text:ital@1&display=swap");
 
-$color-bg: 	#91ff0242;
-$color-bg-purple: #bd02ff30;
-$color-hov: #ffa600;
-$color-red: rgba(250, 40, 40, 0.897);
-$color-red-hov: rgba(250, 40, 40, 0.719);
+$color-bg-default: #8f949e21;
+$color-border-app: #272121ba;
 
-$color-green: #3d9e30;
-$color-white: #ffffff;
+$color-green: #5cb85c;
+$color-green-border: #4cae4c;
+$color-green-hover: #449d44;
+$color-green-border-hover: #398439;
+
+$color-red: #d9534f;
+$color-red-border: #d43f3a;
+$color-red-hover: #c9302c;
+$color-red-border-hover: #ac2925;
+
+$color-orange: #f0ad4e;
+$color-orange-border: #eea236;
+$color-orange-hover: #ec971f;
+$color-orange-border-hover: #d58512;
+
 $color-black: #000000;
-$color-btn: rgba(13, 253, 33, 0.349);
 
 $trans: .2s ease-in;
-
 
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   font-family: 'Noticia Text', serif;
-
-  body {
-    background-color: $color-bg-purple;
-  }
 
   &:focus {
     outline: none;

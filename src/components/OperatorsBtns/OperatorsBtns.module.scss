@@ -11,6 +11,11 @@
   margin: 4px;
   font-size: 21px;
   text-align: center;
-  background-color: greenyellow;
+  background-color: $color-orange;
+  border-color: $color-orange-border;
 }
 
+.btn:hover {
+  background-color: $color-orange-hover;
+  border-color: $color-orange-border-hover;
+}

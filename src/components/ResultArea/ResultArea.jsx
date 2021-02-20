@@ -2,17 +2,18 @@ import React from "react"
 
 import styles from './ResultArea.module.scss'
 
-const ResultArea = ({number}) => {
+const ResultArea = ({result}) => {
   return (
     <div className={styles.resultWrapp}>
       <input
         className={styles.result}
         type="text"
-        value={number}
+        value={result}
         placeholder='0'
-        onChange={number}
+        readOnly
+        onChange={result.value}
       />
-      <p className={styles.caption}>nuhai bebry</p>
+      <p className={styles.caption}></p>
     </div>
   )
 }

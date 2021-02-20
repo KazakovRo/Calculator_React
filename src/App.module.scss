@@ -1,7 +1,8 @@
 @import './styles.scss';
 
 .calculatorWrapp {
-  background-color: $color-red;
+  background-color: $color-bg-default;
+  border: 1px solid $color-border-app;
   width: 400px;
   padding-bottom: 8px;
   margin: 50px auto;
