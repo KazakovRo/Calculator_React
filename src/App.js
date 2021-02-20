@@ -24,9 +24,9 @@ const App = () => {
   const handleEqualTo = (firstOperand, secondOperand, operator) => {
     let result 
 
-    let isPlusOperator = operator === "+"
-    let isMinusOperator = operator === "-"
-    let isMultiplyOperator = operator === "x"
+    const isPlusOperator = operator === "+"
+    const isMinusOperator = operator === "-"
+    const isMultiplyOperator = operator === "x"
 
     if (isPlusOperator) {
       result = handlePlusOperator(firstOperand, secondOperand)
@@ -46,15 +46,26 @@ const App = () => {
     setResult(0)
   }
 
-  const handleSetOperandValue = (btnValue) => { 
-    let isFirstOperand = typeof btnValue == 'number' && isFirstValue === true
-    let isOperator = typeof btnValue == 'string' && btnValue !== '=' && btnValue !== 'A/C'
-    let isEqualBtn = typeof btnValue == 'string' && btnValue === '='
-    let isClearBtn = typeof btnValue == 'string' && btnValue === 'A/C'
+  const handleOperandValue = (btnValue) => {
+    const isFirstOperand = typeof btnValue == 'number' && isFirstValue === true
 
     if (isFirstOperand) {
       setFirstOperand(btnValue)
       setResult(btnValue)
+    } else {
+      setSecondOperand(btnValue)
+      setResult(btnValue)
+    }
+  }
+
+  const handleSetOperandValue = (btnValue) => { 
+    const isOperand = typeof btnValue == 'number'
+    const isOperator = typeof btnValue == 'string' && btnValue !== '=' && btnValue !== 'A/C'
+    const isEqualBtn = typeof btnValue == 'string' && btnValue === '='
+    const isClearBtn = typeof btnValue == 'string' && btnValue === 'A/C'
+
+    if (isOperand) {
+      handleOperandValue(btnValue)
     } else if (isOperator) {
       setOperator(btnValue)
       setIsFirstValue(false)    
@@ -62,9 +73,6 @@ const App = () => {
       handleEqualTo(firstOperand, secondOperand, operator)
     } else if (isClearBtn) {
       handleClearAll()
-    } else {
-      setSecondOperand(btnValue)
-      setResult(btnValue)
     }
   }
 
