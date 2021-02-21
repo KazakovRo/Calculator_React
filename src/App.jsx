@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 
 import styles from './App.module.scss'
 
+import { ADDITIONAL_VALUES, NUMBER_VALUES, OPERATORS_VALUES } from 'static/data'
+import { isClearBtn, isEqualBtn, isOperator } from 'utils/checker'
 import ResultArea from 'components/ResultArea/ResultArea'
 import CalculatorButtons from 'components/CalculatorButtons/CalculatorButtons'
 
@@ -10,14 +12,6 @@ const App = () => {
   const [secondOperand, setSecondOperand] = useState('')
   const [operator, setOperator] = useState('')
   const [result, setResult] = useState(0)
-  const [isFirstValue, setIsFirstValue] = useState(true)
-
-  const numberValues = [7, 8, 9, 4, 5, 6, 1, 2, 3, 0]
-  const operatorsValues = ['+', '-', '/', 'x']
-  const additionalValues = ['.', 'A/C', '=']
-
-  let firstOperandValue = []
-  let secondOperandValue = []
 
   const handlePlusOperator = (firstOperand, secondOperand) => firstOperand + secondOperand
   const handleMinusOperator = (firstOperand, secondOperand) => firstOperand - secondOperand
@@ -25,27 +19,14 @@ const App = () => {
   const handleDivideOperator = (firstOperand, secondOperand) => firstOperand / secondOperand
 
   const handleSetAllValues = btnValue => {
-    const isOperand = typeof btnValue == 'number'
-    const isOperator = typeof btnValue == 'string' && btnValue !== '=' && btnValue !== 'A/C'
-    const isEqualBtn = typeof btnValue == 'string' && btnValue === '='
-    const isClearBtn = typeof btnValue == 'string' && btnValue === 'A/C'
-
-    if (isOperand) {
-      handleOperandValue(btnValue)
-    } else if (isOperator) {
-      setOperator(btnValue)
-      setIsFirstValue(false)
-    } else if (isEqualBtn) {
-      handleEqualTo(firstOperand, secondOperand, operator)
-    } else if (isClearBtn) {
-      handleClearAll()
-    }
+    typeof btnValue === 'number' && handleOperandValue(btnValue)
+    isClearBtn(btnValue) && handleClearAll()
+    isOperator(btnValue) && setOperator(btnValue)
+    isEqualBtn(btnValue) && handleEqualTo(firstOperand, secondOperand, operator)
   }
 
   const handleOperandValue = btnValue => {
-    const isFirstOperand = typeof btnValue == 'number' && isFirstValue === true
-
-    if (isFirstOperand) {
+    if (isOperator(operator)) {
       setFirstOperand(btnValue)
       setResult(btnValue)
     } else {
@@ -57,27 +38,36 @@ const App = () => {
   const handleEqualTo = (firstOperand, secondOperand, operator) => {
     let result
 
-    const isPlusOperator = operator === '+'
-    const isMinusOperator = operator === '-'
-    const isMultiplyOperator = operator === 'x'
+    switch (operator) {
+      case '+':
+        result = handlePlusOperator(firstOperand, secondOperand)
+        break
 
-    if (isPlusOperator) {
-      result = handlePlusOperator(firstOperand, secondOperand)
-    } else if (isMinusOperator) {
-      result = handleMinusOperator(firstOperand, secondOperand)
-    } else if (isMultiplyOperator) {
-      result = handleMultiplyOperator(firstOperand, secondOperand)
-    } else {
-      result = handleDivideOperator(firstOperand, secondOperand)
+      case '-':
+        result = handleMinusOperator(firstOperand, secondOperand)
+        break
+
+      case '/':
+        result = handleDivideOperator(firstOperand, secondOperand)
+        break
+
+      case 'x':
+        result = handleMultiplyOperator(firstOperand, secondOperand)
+        break
+
+      default:
+        result = 0
+        break
     }
 
     setResult(result)
-
-    return setFirstOperand(result)
+    setFirstOperand(result)
   }
 
   const handleClearAll = () => {
-    setIsFirstValue(true)
+    setFirstOperand('')
+    setSecondOperand('')
+    setOperator('')
     setResult(0)
   }
 
@@ -86,9 +76,9 @@ const App = () => {
       <ResultArea result={result} />
 
       <CalculatorButtons
-        numberValues={numberValues}
-        operatorsValues={operatorsValues}
-        additionalValues={additionalValues}
+        numberValues={NUMBER_VALUES}
+        operatorsValues={OPERATORS_VALUES}
+        additionalValues={ADDITIONAL_VALUES}
         handleSetAllValues={handleSetAllValues}
       />
     </div>
