@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Noticia Text', serif;
+
+  &:focus {
+    outline: none;
+  }
+
+  ::placeholder {
+    color: $color-black;
+  }
+}

@@ -1,27 +1,18 @@
-import React from "react"
+import React from 'react'
 
-import NumbersBtns from '../NumbersBtns/NumbersBtns'
-import OperatorsBtns from '../OperatorsBtns/OperatorsBtns'
-import AdditionalBtns from '../AdditionalBtns/AdditionalBtns'
+import NumbersBtns from 'components/NumbersBtns/NumbersBtns'
+import OperatorsBtns from 'components/OperatorsBtns/OperatorsBtns'
+import AdditionalBtns from 'components/AdditionalBtns/AdditionalBtns'
 
 import styles from './CalculatorButtons.module.scss'
 
-const CalculatorButtons = ({numberValues, operatorsValues, additionalValues, handleSetAllValues}) => {
+const CalculatorButtons = ({ numberValues, operatorsValues, additionalValues, handleSetAllValues }) => {
   return (
     <div className={styles.calculatorBtns}>
-      <NumbersBtns 
-        numberValues={numberValues}
-        handleSetAllValues={handleSetAllValues}
-      />
-      <OperatorsBtns 
-        operatorsValues={operatorsValues} 
-        handleSetAllValues={handleSetAllValues}
-      />
+      <NumbersBtns numberValues={numberValues} handleSetAllValues={handleSetAllValues} />
+      <OperatorsBtns operatorsValues={operatorsValues} handleSetAllValues={handleSetAllValues} />
 
-      <AdditionalBtns 
-        additionalValues={additionalValues} 
-        handleSetAllValues={handleSetAllValues}
-      />
+      <AdditionalBtns additionalValues={additionalValues} handleSetAllValues={handleSetAllValues} />
     </div>
   )
 }

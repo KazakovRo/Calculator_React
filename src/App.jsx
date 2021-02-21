@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useState } from 'react'
 
-import styles from './App.module.scss';
+import styles from './App.module.scss'
 
-import ResultArea from './components/ResultArea/ResultArea'
-import CalculatorButtons from './components/CalculatorButtons/CalculatorButtons'
+import ResultArea from 'components/ResultArea/ResultArea'
+import CalculatorButtons from 'components/CalculatorButtons/CalculatorButtons'
 
 const App = () => {
   const [firstOperand, setFirstOperand] = useState('')
@@ -24,8 +24,7 @@ const App = () => {
   const handleMultiplyOperator = (firstOperand, secondOperand) => firstOperand * secondOperand
   const handleDivideOperator = (firstOperand, secondOperand) => firstOperand / secondOperand
 
-
-  const handleSetAllValues = (btnValue) => { 
+  const handleSetAllValues = btnValue => {
     const isOperand = typeof btnValue == 'number'
     const isOperator = typeof btnValue == 'string' && btnValue !== '=' && btnValue !== 'A/C'
     const isEqualBtn = typeof btnValue == 'string' && btnValue === '='
@@ -35,7 +34,7 @@ const App = () => {
       handleOperandValue(btnValue)
     } else if (isOperator) {
       setOperator(btnValue)
-      setIsFirstValue(false)    
+      setIsFirstValue(false)
     } else if (isEqualBtn) {
       handleEqualTo(firstOperand, secondOperand, operator)
     } else if (isClearBtn) {
@@ -43,7 +42,7 @@ const App = () => {
     }
   }
 
-  const handleOperandValue = (btnValue) => {
+  const handleOperandValue = btnValue => {
     const isFirstOperand = typeof btnValue == 'number' && isFirstValue === true
 
     if (isFirstOperand) {
@@ -56,11 +55,11 @@ const App = () => {
   }
 
   const handleEqualTo = (firstOperand, secondOperand, operator) => {
-    let result 
+    let result
 
-    const isPlusOperator = operator === "+"
-    const isMinusOperator = operator === "-"
-    const isMultiplyOperator = operator === "x"
+    const isPlusOperator = operator === '+'
+    const isMinusOperator = operator === '-'
+    const isMultiplyOperator = operator === 'x'
 
     if (isPlusOperator) {
       result = handlePlusOperator(firstOperand, secondOperand)
@@ -71,10 +70,10 @@ const App = () => {
     } else {
       result = handleDivideOperator(firstOperand, secondOperand)
     }
-    
+
     setResult(result)
 
-    return  setFirstOperand(result)
+    return setFirstOperand(result)
   }
 
   const handleClearAll = () => {
@@ -85,7 +84,7 @@ const App = () => {
   return (
     <div className={styles.calculatorWrapp}>
       <ResultArea result={result} />
-      
+
       <CalculatorButtons
         numberValues={numberValues}
         operatorsValues={operatorsValues}

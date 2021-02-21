@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Noticia+Text:ital@1&display=swap");
-
 $color-bg-default: #8f949e21;
 $color-border-app: #272121ba;
 
@@ -20,19 +18,4 @@ $color-orange-border-hover: #d58512;
 
 $color-black: #000000;
 
-$trans: .2s ease-in;
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Noticia Text', serif;
-
-  &:focus {
-    outline: none;
-  }
-
-  ::placeholder {
-    color: $color-black;
-  }
-}
+$trans: 0.2s ease-in;

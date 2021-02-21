@@ -1,16 +1,12 @@
-import React from "react"
+import React from 'react'
 
-import ButtonLogic from '../ButtonLogic/ButtonLogic'
+import ButtonLogic from 'components/ButtonLogic/ButtonLogic'
 import styles from './NumbersBtns.module.scss'
 
 const NumbersBtns = ({ numberValues, handleSetAllValues }) => {
   return (
     <div className={styles.numbersWrapp}>
-      <ButtonLogic
-        arrayValues={numberValues}
-        styles={styles}
-        handleSetAllValues={handleSetAllValues}
-      />
+      <ButtonLogic arrayValues={numberValues} styles={styles} handleSetAllValues={handleSetAllValues} />
     </div>
   )
 }
