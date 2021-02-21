@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import styles from './App.module.scss'
 
@@ -8,10 +8,25 @@ import ResultArea from 'components/ResultArea/ResultArea'
 import CalculatorButtons from 'components/CalculatorButtons/CalculatorButtons'
 
 const App = () => {
-  const [firstOperand, setFirstOperand] = useState('')
-  const [secondOperand, setSecondOperand] = useState('')
-  const [operator, setOperator] = useState('')
-  const [result, setResult] = useState(0)
+  const [firstOperand, setFirstOperand] = useState(null)
+  const [secondOperand, setSecondOperand] = useState(null)
+  const [operator, setOperator] = useState(null)
+  const [result, setResult] = useState(null)
+
+  const [screenData, setScreenData] = useState('')
+  const [history, setHistory] = useState('')
+
+  useEffect(() => {
+    if (typeof result === 'number') {
+      setScreenData(result)
+    } else {
+      const firstNumber = firstOperand ? firstOperand : ''
+      const operatorSymbol = operator ? ` ${operator}` : ''
+      const secondNumber = secondOperand ? ` ${secondOperand}` : ''
+
+      setScreenData(`${firstNumber}${operatorSymbol}${secondNumber}`)
+    }
+  }, [firstOperand, operator, secondOperand, result])
 
   const handlePlusOperator = (firstOperand, secondOperand) => firstOperand + secondOperand
   const handleMinusOperator = (firstOperand, secondOperand) => firstOperand - secondOperand
@@ -25,15 +40,8 @@ const App = () => {
     isEqualBtn(btnValue) && handleEqualTo(firstOperand, secondOperand, operator)
   }
 
-  const handleOperandValue = btnValue => {
-    if (isOperator(operator)) {
-      setFirstOperand(btnValue)
-      setResult(btnValue)
-    } else {
-      setSecondOperand(btnValue)
-      setResult(btnValue)
-    }
-  }
+  const handleOperandValue = btnValue =>
+    typeof firstOperand === 'number' ? setSecondOperand(btnValue) : setFirstOperand(btnValue)
 
   const handleEqualTo = (firstOperand, secondOperand, operator) => {
     let result
@@ -60,20 +68,21 @@ const App = () => {
         break
     }
 
+    setHistory(`${history} ${firstOperand} ${operator} ${secondOperand}`)
     setResult(result)
-    setFirstOperand(result)
   }
 
   const handleClearAll = () => {
     setFirstOperand('')
     setSecondOperand('')
     setOperator('')
-    setResult(0)
+    setResult('')
+    setHistory('')
   }
 
   return (
     <div className={styles.calculatorWrapp}>
-      <ResultArea result={result} />
+      <ResultArea result={screenData} />
 
       <CalculatorButtons
         numberValues={NUMBER_VALUES}
