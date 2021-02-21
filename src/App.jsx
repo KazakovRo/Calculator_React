@@ -14,7 +14,7 @@ const App = () => {
   const [result, setResult] = useState(null)
 
   const [screenData, setScreenData] = useState('')
-  const [history, setHistory] = useState('')
+  const [history, setHistory] = useState([])
 
   useEffect(() => {
     if (typeof result === 'number') {
@@ -22,7 +22,7 @@ const App = () => {
     } else {
       const firstNumber = firstOperand ? firstOperand : ''
       const operatorSymbol = operator ? ` ${operator}` : ''
-      const secondNumber = secondOperand ? ` ${secondOperand}` : ''
+      const secondNumber = operator && secondOperand ? ` ${secondOperand}` : ''
 
       setScreenData(`${firstNumber}${operatorSymbol}${secondNumber}`)
     }
@@ -34,42 +34,67 @@ const App = () => {
   const handleDivideOperator = (firstOperand, secondOperand) => firstOperand / secondOperand
 
   const handleSetAllValues = btnValue => {
-    typeof btnValue === 'number' && handleOperandValue(btnValue)
-    isClearBtn(btnValue) && handleClearAll()
-    isOperator(btnValue) && setOperator(btnValue)
+    // Set 0-9
+    typeof btnValue === 'number' && handleSetValue(btnValue)
+    // Set + - / *
+    isOperator(btnValue) && handleSetOperator(btnValue)
+    // Set =
     isEqualBtn(btnValue) && handleEqualTo(firstOperand, secondOperand, operator)
+    // Call clear action
+    isClearBtn(btnValue) && handleClearAll()
   }
 
-  const handleOperandValue = btnValue =>
-    typeof firstOperand === 'number' ? setSecondOperand(btnValue) : setFirstOperand(btnValue)
+  const handleSetValue = operand => {
+    if (typeof result === 'number') {
+      handleClearAll()
+      setFirstOperand(operand)
+    } else {
+      isOperator(operator)
+        ? setSecondOperand(+`${secondOperand ? secondOperand : ''}${operand}`)
+        : setFirstOperand(+`${firstOperand ? firstOperand : ''}${operand}`)
+    }
+  }
+
+  const handleSetOperator = operator => {
+    setOperator(operator)
+
+    if (typeof result === 'number') {
+      setFirstOperand(result)
+      setSecondOperand(null)
+      setResult(null)
+    }
+  }
 
   const handleEqualTo = (firstOperand, secondOperand, operator) => {
-    let result
+    let firstNumber = firstOperand
+    let currentResult = null
+
+    if (typeof result === 'number') firstNumber = result
 
     switch (operator) {
       case '+':
-        result = handlePlusOperator(firstOperand, secondOperand)
+        currentResult = handlePlusOperator(firstNumber, secondOperand)
         break
 
       case '-':
-        result = handleMinusOperator(firstOperand, secondOperand)
+        currentResult = handleMinusOperator(firstNumber, secondOperand)
         break
 
       case '/':
-        result = handleDivideOperator(firstOperand, secondOperand)
+        currentResult = handleDivideOperator(firstNumber, secondOperand)
         break
 
       case 'x':
-        result = handleMultiplyOperator(firstOperand, secondOperand)
+        currentResult = handleMultiplyOperator(firstNumber, secondOperand)
         break
 
       default:
-        result = 0
+        currentResult = null
         break
     }
 
-    setHistory(`${history} ${firstOperand} ${operator} ${secondOperand}`)
-    setResult(result)
+    setHistory([...history, [`${firstNumber} ${operator} ${secondOperand} = ${currentResult}`]])
+    setResult(currentResult)
   }
 
   const handleClearAll = () => {
@@ -77,8 +102,9 @@ const App = () => {
     setSecondOperand('')
     setOperator('')
     setResult('')
-    setHistory('')
   }
+
+  console.log(history)
 
   return (
     <div className={styles.calculatorWrapp}>

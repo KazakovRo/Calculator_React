@@ -6,15 +6,13 @@ import AdditionalBtns from 'components/AdditionalBtns/AdditionalBtns'
 
 import styles from './CalculatorButtons.module.scss'
 
-const CalculatorButtons = ({ numberValues, operatorsValues, additionalValues, handleSetAllValues }) => {
-  return (
-    <div className={styles.calculatorBtns}>
-      <NumbersBtns numberValues={numberValues} handleSetAllValues={handleSetAllValues} />
-      <OperatorsBtns operatorsValues={operatorsValues} handleSetAllValues={handleSetAllValues} />
+const CalculatorButtons = ({ numberValues, operatorsValues, additionalValues, handleSetAllValues }) => (
+  <div className={styles.calculatorBtns}>
+    <NumbersBtns numberValues={numberValues} handleSetAllValues={handleSetAllValues} />
+    <OperatorsBtns operatorsValues={operatorsValues} handleSetAllValues={handleSetAllValues} />
 
-      <AdditionalBtns additionalValues={additionalValues} handleSetAllValues={handleSetAllValues} />
-    </div>
-  )
-}
+    <AdditionalBtns additionalValues={additionalValues} handleSetAllValues={handleSetAllValues} />
+  </div>
+)
 
 export default CalculatorButtons
