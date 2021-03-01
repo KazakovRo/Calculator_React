@@ -20,6 +20,6 @@
   border-color: $color-green-border-hover;
 }
 
-.numbersWrapp .btn:last-child {
-  width: 93%;
+.numbersWrapp .btn:nth-last-child(2) {
+  width: 60.5%;
 }
