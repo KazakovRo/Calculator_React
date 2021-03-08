@@ -42,13 +42,12 @@ const App = () => {
     isEqualBtn(btnValue) && handleEqualTo(firstOperand, secondOperand, operator)
     // Call clear action
     isClearBtn(btnValue) && handleClearAll()
-    //Clear last number
+    // Clear last number
     isBackBtn(btnValue) && handleBackBtn(firstOperand, secondOperand)
   }
 
   const handleSetValue = operand => {
     if (typeof result === 'number') {
-      // dont delete !!
       handleClearAll()
       setFirstOperand(operand)
     } else {
@@ -101,33 +100,34 @@ const App = () => {
   }
 
   const handleClearAll = () => {
-    setFirstOperand('')
-    setSecondOperand('')
-    setOperator('')
-    setResult('')
+    setFirstOperand(null)
+    setSecondOperand(null)
+    setOperator(null)
+    setResult(null)
   }
 
+  // 1. Если у тебя есть result то ты удаляешь последний символ result. После удаления последнего символа result - ты делаешь handleClearAll().
+  // 2. Если у тебя есть в secondOperand что то то ты убираешь последний симмвол.
+  // 3. Если в secondOperand ничего нету то ты проверяешь operator и если он есть - удаляешь его.
+  // 4. Дальше если вдруг у тебя и operator нету тогда ты проверяешь firstOperand и уже удаляешь последний символ с firstOperand.
+  // Если в этих 3 стейтах нихуя нету тогде нихуя не делаешь.
+  // Hint: Для удаления последнего значения в строке используй #.slice(0, -1).
   const handleBackBtn = (firstOperand, secondOperand) => {
     console.log('back btn')
     let changeValue = null
 
-    secondOperand === null
-      ? changeValue = firstOperand 
-      : changeValue = secondOperand && isChangeFirst === false
+    secondOperand === null ? (changeValue = firstOperand) : (changeValue = secondOperand && isChangeFirst === false)
 
     const convertToArray = String(changeValue).split('')
     convertToArray.pop()
     const convertToString = convertToArray.join('')
     const newOperandValue = Number(convertToString)
 
-    isChangeFirst
-      ? setFirstOperand(newOperandValue)
-      : setSecondOperand(newOperandValue)
-    
+    isChangeFirst ? setFirstOperand(newOperandValue) : setSecondOperand(newOperandValue)
+
     // let firstOperand = firstNumber
-    
+
     // handleEqualTo()
-    
   }
 
   console.log(history)
