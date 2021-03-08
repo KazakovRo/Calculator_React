@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 
 import styles from './App.module.scss'
 
 import { ADDITIONAL_VALUES, NUMBER_VALUES, OPERATORS_VALUES } from 'static/data'
-import { isClearBtn, isEqualBtn, isOperator } from 'utils/checker'
+import { isClearBtn, isEqualBtn, isOperator, isBackBtn, isChangeFirst } from 'utils/checker'
 import ResultArea from 'components/ResultArea/ResultArea'
 import CalculatorButtons from 'components/CalculatorButtons/CalculatorButtons'
 
@@ -42,10 +42,13 @@ const App = () => {
     isEqualBtn(btnValue) && handleEqualTo(firstOperand, secondOperand, operator)
     // Call clear action
     isClearBtn(btnValue) && handleClearAll()
+    //Clear last number
+    isBackBtn(btnValue) && handleBackBtn(firstOperand, secondOperand)
   }
 
   const handleSetValue = operand => {
     if (typeof result === 'number') {
+      // dont delete !!
       handleClearAll()
       setFirstOperand(operand)
     } else {
@@ -104,19 +107,49 @@ const App = () => {
     setResult('')
   }
 
+  const handleBackBtn = (firstOperand, secondOperand) => {
+    console.log('back btn')
+    let changeValue = null
+
+    secondOperand === null
+      ? changeValue = firstOperand 
+      : changeValue = secondOperand && isChangeFirst === false
+
+    const convertToArray = String(changeValue).split('')
+    convertToArray.pop()
+    const convertToString = convertToArray.join('')
+    const newOperandValue = Number(convertToString)
+
+    isChangeFirst
+      ? setFirstOperand(newOperandValue)
+      : setSecondOperand(newOperandValue)
+    
+    // let firstOperand = firstNumber
+    
+    // handleEqualTo()
+    
+  }
+
   console.log(history)
 
   return (
-    <div className={styles.calculatorWrapp}>
-      <ResultArea result={screenData} />
+    <Fragment>
+      <div className={styles.calculatorWrapp}>
+        <ResultArea result={screenData} />
 
-      <CalculatorButtons
-        numberValues={NUMBER_VALUES}
-        operatorsValues={OPERATORS_VALUES}
-        additionalValues={ADDITIONAL_VALUES}
-        handleSetAllValues={handleSetAllValues}
-      />
-    </div>
+        <CalculatorButtons
+          numberValues={NUMBER_VALUES}
+          operatorsValues={OPERATORS_VALUES}
+          additionalValues={ADDITIONAL_VALUES}
+          handleSetAllValues={handleSetAllValues}
+        />
+      </div>
+
+      {/* <div className="action-log">
+        let newHistoryArr = history.map(item => item.style = 'color: red;')
+        console.log('new H ' + newHistoryArr)
+      </div> */}
+    </Fragment>
   )
 }
 

@@ -4,4 +4,8 @@ const isEqualBtn = value => value === '='
 
 const isClearBtn = value => value === 'A/C'
 
-export { isOperator, isEqualBtn, isClearBtn }
+const isBackBtn = value => value === '←'
+
+const isChangeFirst = true
+
+export { isOperator, isEqualBtn, isClearBtn, isBackBtn, isChangeFirst }
