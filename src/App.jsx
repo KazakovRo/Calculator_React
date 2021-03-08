@@ -145,10 +145,11 @@ const App = () => {
         />
       </div>
 
-      {/* <div className="action-log">
-        let newHistoryArr = history.map(item => item.style = 'color: red;')
-        console.log('new H ' + newHistoryArr)
-      </div> */}
+      <ul className='action-log'>
+        {history.map((item, index) => (
+          <li key={index}>♦ {item}</li>
+        ))}
+      </ul>
     </Fragment>
   )
 }
