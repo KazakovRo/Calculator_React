@@ -120,8 +120,6 @@ const App = () => {
     console.log('func del')
 
     if (value != 0 && value != null) {
-      // const newValue = value.toString().slice(0, -1)
-      // newValue.length === 0 ? handleClearAll() : setResult(+`${newValue}`)
       handleDeleteFunc(value, handleClearAll, setResult)
     }
 
@@ -137,16 +135,8 @@ const App = () => {
     console.log('func del do nothing')
   }
 
-  // const handleDeleteSecondOperand = (secondOperand) => {
-  //   console.log('second delete')
-
-  //   const newValue = secondOperand.toString().slice(0, -1)
-  //   newValue.length === 0 ? setSecondOperand(null) : setSecondOperand(+`${newValue}`)
-  // }
-
   const changeToDelete = (firstOperand, secondOperand, operator) => {
     if (secondOperand != 0 && secondOperand != null) {
-      // handleDeleteSecondOperand(secondOperand)
       handleDeleteFunc(secondOperand, setSecondOperand, setSecondOperand)
     } else if (secondOperand === null && operator != null) {
       setOperator(null)
