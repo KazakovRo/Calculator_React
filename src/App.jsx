@@ -107,12 +107,7 @@ const App = () => {
     console.log('clear all fin')
   }
 
-  // 1. Если у тебя есть result то ты удаляешь последний символ result. После удаления последнего символа result - ты делаешь handleClearAll().
-  // 2. Если у тебя есть в secondOperand что то то ты убираешь последний симмвол.
-  // 3. Если в secondOperand ничего нету то ты проверяешь operator и если он есть - удаляешь его.
-  // 4. Дальше если вдруг у тебя и operator нету тогда ты проверяешь firstOperand и уже удаляешь последний символ с firstOperand.
-  // Если в этих 3 стейтах нихуя нету тогде нихуя не делаешь.
-  // Hint: Для удаления последнего значения в строке используй #.slice(0, -1).
+// delete values
   const handleBackBtn = (secondOperand, result) => {
     console.log('back btn')
 
@@ -125,28 +120,34 @@ const App = () => {
     console.log('func del')
 
     if (value != 0 && value != null) {
-      const newValue = value.toString().slice(0, -1)
-      newValue.length === 0 ? handleClearAll() : setResult(+`${newValue}`)
+      // const newValue = value.toString().slice(0, -1)
+      // newValue.length === 0 ? handleClearAll() : setResult(+`${newValue}`)
+      handleDeleteFunc(value, handleClearAll, setResult)
     }
 
     if (value < 0) {
-      console.log('less null')
+      // console.log('less null')
+      console.warn(result)
+      console.warn(typeof result)
       handleClearAll()
     }
-    
+    // 1 - 2 = -1 .then click backBtn = NaN in Result
+    // value < 0 && handleClearAll()
+
     console.log('func del do nothing')
   }
 
-  const handleDeleteSecondOperand = (secondOperand) => {
-    console.log('second delete')
+  // const handleDeleteSecondOperand = (secondOperand) => {
+  //   console.log('second delete')
 
-    const newValue = secondOperand.toString().slice(0, -1)
-    newValue.length === 0 ? setSecondOperand(null) : setSecondOperand(+`${newValue}`)
-  }
+  //   const newValue = secondOperand.toString().slice(0, -1)
+  //   newValue.length === 0 ? setSecondOperand(null) : setSecondOperand(+`${newValue}`)
+  // }
 
   const changeToDelete = (firstOperand, secondOperand, operator) => {
     if (secondOperand != 0 && secondOperand != null) {
-      handleDeleteSecondOperand(secondOperand)
+      // handleDeleteSecondOperand(secondOperand)
+      handleDeleteFunc(secondOperand, setSecondOperand, setSecondOperand)
     } else if (secondOperand === null && operator != null) {
       setOperator(null)
       console.log('operator del')
@@ -155,6 +156,18 @@ const App = () => {
     } else {
       console.log('fin point')
     }
+  }
+
+  const handleDeleteFunc = (value, fucntionResolve, functionReject) => {
+    const newValue = value.toString().slice(0, -1)
+
+    if (fucntionResolve === setSecondOperand) {
+      newValue.length === 0 ? fucntionResolve(null) : functionReject(+`${newValue}`)
+    } else {
+      newValue.length === 0 ? fucntionResolve() : functionReject(+`${newValue}`)
+    }
+
+    console.log('new func working !!')
   }
 
   console.log(history)
